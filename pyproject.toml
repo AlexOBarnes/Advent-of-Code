@@ -1,0 +1,7 @@
+[project]
+name = "advent-of-code"
+version = "0.1.0"
+description = "My solutions for advent of code - the festive programming puzzle series!"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
