@@ -1,66 +1,60 @@
+import sys
+import os
+
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "src"))
+)
+from aoc import Client
+
+
 class Lock:
+    """Lock object that can rotate L or R with min value 0 and max value 99"""
+
     def __init__(self):
         self.position = 50
         self.zero_passes = 0
+        self.zeroes = 0
 
-    def left_rotation(self, val):
-        full_cycles, remainder = divmod(val, 100)
+    def rotate(self, direction: str, value: int) -> None:
+        full_cycles, remainder = divmod(value, 100)
         self.zero_passes += full_cycles
         for _ in range(remainder):
-            self.position -= 1
-            if self.position < 0:
-                self.position = 99
+            if direction == "L":
+                self.position -= 1
+                if self.position < 0:
+                    self.position = 99
+            else:
+                self.position += 1
+                if self.position > 99:
+                    self.position = 0
             if self.position == 0:
                 self.zero_passes += 1
 
-    def right_rotation(self, val):
-        full_cycles, remainder = divmod(val, 100)
-        self.zero_passes += full_cycles
-        for _ in range(remainder):
-            self.position += 1
-            if self.position > 99:
-                self.position = 0
+    def run_rotations(self, rotations: list[tuple[str, int]]) -> None:
+        self.zeroes = 0
+        for rotation in rotations:
+            self.rotate(rotation[0], rotation[1])
             if self.position == 0:
-                self.zero_passes += 1
+                self.zeroes += 1
 
 
-def read_file(filename):
-    with open(f"input/{filename}", "r") as f:
-        data = f.readlines()
-
-    return [row.strip() for row in data]
-
-
-def part_one_main():
-    data = read_file("../input/day1.txt")
-    rotations = [(row[0], int(row[1:])) for row in data]
+def part_one_main() -> int:
+    client = Client()
+    rotations = client.readlines(
+        day=1, fn=lambda rows: [(row[0], int(row[1:])) for row in rows]
+    )
     lock = Lock()
-    total = 0
-    for rotation in rotations:
-        if rotation[0] == "L":
-            lock.left_rotation(rotation[1])
-        else:
-            lock.right_rotation(rotation[1])
-        if lock.position < 0:
-            print(f"error low: {lock.position}")
-        if lock.position > 99:
-            print(f"error high: {lock.position}")
-        if lock.position == 0:
-            total += 1
-
-    return total
+    lock.run_rotations(rotations)
+    return lock.zeroes
 
 
-def part_two_main():
-    data = read_file("../input/day1.txt")
-    rotations = [(row[0], int(row[1:])) for row in data]
+def part_two_main() -> int:
+    client = Client()
+    rotations = client.readlines(
+        day=1, fn=lambda rows: [(row[0], int(row[1:])) for row in rows]
+    )
     lock = Lock()
-    for rotation in rotations:
-        if rotation[0] == "L":
-            lock.left_rotation(rotation[1])
-        else:
-            lock.right_rotation(rotation[1])
-
+    lock.run_rotations(rotations)
     return lock.zero_passes
 
 
