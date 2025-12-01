@@ -1,6 +1,6 @@
 # Advent of Code
 
-My solutions for [Advent of Code](https://adventofcode.com/) 2025 - the festive programming puzzle series.
+My solutions for [Advent of Code](https://adventofcode.com/) - the festive programming puzzle series.
 
 ## Structure
 
@@ -9,13 +9,18 @@ My solutions for [Advent of Code](https://adventofcode.com/) 2025 - the festive 
 
 ## How to Run
 
-1. Ensure you have Python 3 installed.
-2. Place the relevant input file (e.g., `day1.txt`) in the `input/` directory.
-3. Run the script for the desired day:
+1. Ensure you have Python installed.
+2. Either navigate to the folder of the year of the problem or include it in the run command.
+3. Ensure the day's data is present in the input folder, following the naming convention.
+4. Run the script for the desired day:
 
    ```sh
    python day1.py
    ```
+
+## Note 
+Dependencies will be added as they are used and will be available to sync using uv.
+
 ## Additions
 
 I plan to add a client for reading each day's data in automatically, to streamline the process of fetching and preparing puzzle inputs.
