@@ -8,6 +8,7 @@ from aoc import Client
 
 
 def is_double_sequence(num):
+    """Checks if a sequence is a duplicated string of numbers"""
     s = str(num)
     n = len(s)
     if n % 2 != 0:
@@ -17,6 +18,7 @@ def is_double_sequence(num):
 
 
 def is_repeated_sequence(num):
+    """Checks if a number is made up of a repeated string of numbers"""
     s = str(num)
     n = len(s)
     for size in range(1, n // 2 + 1):
@@ -27,6 +29,7 @@ def is_repeated_sequence(num):
 
 
 def id_iterator(ids: list, checker=is_double_sequence):
+    """Iterates through a an id range"""
     total = 0
     for i in range(int(ids[0]), int(ids[1]) + 1):
         if checker(i):
@@ -41,10 +44,7 @@ def part_one_main():
         test=False,
         fn=lambda line: [id_range.split("-") for id_range in line.split(",")],
     )
-    total = 0
-    for id_range in id_ranges:
-        total += id_iterator(id_range)
-    return total
+    return sum([id_iterator(id_range) for id_range in id_ranges])
 
 
 def part_two_main():
@@ -54,10 +54,9 @@ def part_two_main():
         test=False,
         fn=lambda line: [id_range.split("-") for id_range in line.split(",")],
     )
-    total = 0
-    for id_range in id_ranges:
-        total += id_iterator(id_range, checker=is_repeated_sequence)
-    return total
+    return sum(
+        [id_iterator(id_range, checker=is_repeated_sequence) for id_range in id_ranges]
+    )
 
 
 if __name__ == "__main__":
