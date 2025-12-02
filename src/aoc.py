@@ -34,7 +34,9 @@ class Client:
         filename += ".txt"
         return os.path.join(self.input_dir, filename)
 
-    def read(self, day: int = None, test: bool = False, part2: bool = False) -> str:
+    def read(
+        self, day: int = None, test: bool = False, part2: bool = False, fn=None
+    ) -> str:
         """Reads the entire input file."""
         path = self.get_input_path(day, test, part2)
         if path in self._cache:
@@ -42,6 +44,8 @@ class Client:
         with open(path, "r") as f:
             data = f.read()
         self._cache[path] = data
+        if fn is not None:
+            return fn(data)
         return data
 
     def readlines(
