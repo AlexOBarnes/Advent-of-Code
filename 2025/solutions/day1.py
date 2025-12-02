@@ -1,3 +1,5 @@
+"""Solution for day 2 problem advent of code https://adventofcode.com/2025/day/1"""
+
 import sys
 import os
 
